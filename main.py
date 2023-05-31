@@ -45,7 +45,7 @@ class Items(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(250), nullable=False)
     little_description = db.Column(db.String(250), nullable=False)
-    price = db.Column(db.Numeric(precision=10, scale=2), nullable=False)
+    price = db.Column(db.Float, nullable=False)
     description = db.Column(db.String(250), nullable=False)
     final_price = db.Column(db.Integer, nullable=False)
 
