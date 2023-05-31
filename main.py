@@ -124,8 +124,9 @@ def item(item_id):
     creator = CreatorItem.query.filter_by(item_id=item_id).first()
     if current_user.is_authenticated:
         if item.final_price >= item.price:
-            item.user = current_user
-            db.session.commit()
+            if item.user == None:
+                item.user = current_user
+                db.session.commit()
     return render_template('strona-przedmiotu.html', item=item, user=current_user,
                            logged_in=current_user.is_authenticated, creator=creator)
 
