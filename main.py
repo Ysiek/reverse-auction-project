@@ -7,7 +7,7 @@ from sqlalchemy.orm import relationship
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, FloatField, PasswordField, IntegerField
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
-from wtforms.validators import DataRequired, Email, Length
+from wtforms.validators import DataRequired, Length
 import random
 import os
 
@@ -65,7 +65,7 @@ class CreatorItem(db.Model):
 
 
 class SignUpForm(FlaskForm):
-    email = StringField("Podaj swoj email:", validators=[DataRequired(), Email()])
+    email = StringField("Podaj swoj email:", validators=[DataRequired()])
     login = StringField("Podaj swoj login:", validators=[DataRequired()])
     password = PasswordField("Podaj haslo: ", validators=[DataRequired()])
     sign_up = SubmitField("Sign up")
