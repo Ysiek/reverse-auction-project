@@ -20,6 +20,7 @@
         {% if logged_in %}
           <li><a href="{{url_for('buy_tokens')}}" type="button" class="btn btn-danger" >Tokens</a></li>
           <li class="text-white px-2 py-2">Your tokens: <strong>{{user.tokens}}</strong></li>
+          <li><a href="{{url_for('add_item')}}" type="button" class="btn btn-primary" >Create Auction</a></li>
           <li><a type="button" href="{{ url_for('logout') }}" class="btn btn-warning">Logout</a></li>
         {% else %}
           </ul>
