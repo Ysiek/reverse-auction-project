@@ -1,0 +1,70 @@
+{% extends 'bootstrap/base.html' %}
+    <title>Title</title>
+{% block styles%}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+{%endblock styles%}
+{% block content %}
+<body style="background-color:#95E1D3;">
+<div class="container">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4">
+      <div class="col-md-3 mb-2 mb-md-0">
+        <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+        </a>
+      </div>
+
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="{{url_for('home')}}" class="nav-link px-2 text-white">Home</a></li>
+        {% if logged_in %}
+          <li><a href="{{url_for('buy_tokens')}}" type="button" class="btn btn-danger" >Tokens</a></li>
+          <li class="text-white px-2 py-2">Your tokens: <strong>{{user.tokens}}</strong></li>
+          <li><a type="button" href="{{ url_for('logout') }}" class="btn btn-warning">Logout</a></li>
+        {% else %}
+          </ul>
+          <div class="col-md-3 text-end">
+            <a type="button" href="{{ url_for('log_in') }}" class="btn btn-outline-warning me-2">Login</a>
+            <a type="button" href="{{ url_for('sign_up') }}" class="btn btn-warning">Sign-up</a>
+          </div>
+        {% endif %}
+
+    </header>
+</div>
+
+    <div class="container d-flex justify-content-between" style="padding-top: 100px;">
+        <div style="width: 300px; height: 500px; border-radius: 20px; background-color: #F38181">Kto obniza cene</div>
+        <div style="width: 400px; height: 360px; border-radius: 20px; background-color: #F38181">
+            <img src="{{url_for('static', filename='obraz.jpg')}}" class="card-img-top p-2" style="border-radius: 20px; width= 30px;" alt="...">
+        </div>
+        <div style="width: 300px; height: 500px; border-radius: 20px; background-color: #F38181; color: white;">
+            <p class="p-1">{{item.description}}</p>
+            <p>WINNER IS {{ item.user.login }}</p>
+            {% if user==item.user %}
+                <a style="width: 250px; padding: 10px; border: none; border-radius: 20px; background-color:  #FCE38A; font-size: 20px; color: white; font-weight: bold;" href="#">BUY IT</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="container d-flex justify-content-center" style="padding-bottom: 10px;">
+        <div>
+            <div class="d-flex">
+                <p style="padding-top: 10px; color: white; font-size: 17px; font-weight: bold;">CENA:</p>
+                <div style="padding-left: 30px;"><p style=" border-radius: 20px;width: 100px; padding-top: 10px; padding-bottom: 10px; background-color: #F38181; text-align: center; font-size: 20px; color: white; font-weight: bold;">
+                    {{item.price}}</p></div>
+            </div>
+            {% if logged_in %}
+                {% if not item.final_price >= item.price %}
+                    {% if not user.tokens <= 0 %}
+                        <a href="{{url_for('less_button', item_id=item.id)}}" style="width: 250px; padding: 10px; border: none; border-radius: 20px; background-color:  #FCE38A; font-size: 20px; color: white; font-weight: bold;">LESS AND LESS</a>
+                    {% else %}
+                        <p>U don't have tokens</p>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="container">
+        <p style="width: 260px;padding: 20px; background-color: #F38181; border-radius: 20px;">Właściciel produktu:
+            {{creator.creator.login}}</p>
+    </div>
+    
+</body>
+{% endblock content%}

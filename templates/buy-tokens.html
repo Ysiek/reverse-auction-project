@@ -1,0 +1,73 @@
+{% extends 'bootstrap/base.html' %}
+    <title>auction</title>
+{% block styles%}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+{%endblock styles%}
+{% block content %}
+<body style="background-color: #95E1D3;">
+<div class="container">
+<main>
+  <div class="container">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4">
+      <div class="col-md-3 mb-2 mb-md-0">
+        <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+        </a>
+      </div>
+
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="{{url_for('home')}}" class="nav-link px-2 text-white">Home</a></li>
+        {% if logged_in %}
+          <li><a href="{{url_for('buy_tokens')}}" type="button" class="btn btn-danger" >Tokens</a></li>
+          <li class="text-white px-2 py-2">Your tokens: <strong>{{user.tokens}}</strong></li>
+          <li><a type="button" href="{{ url_for('logout') }}" class="btn btn-warning">Logout</a></li>
+        {% else %}
+          </ul>
+          <div class="col-md-3 text-end">
+            <a type="button" href="{{ url_for('log_in') }}" class="btn btn-outline-warning me-2">Login</a>
+            <a type="button" href="{{ url_for('sign_up') }}" class="btn btn-warning">Sign-up</a>
+          </div>
+        {% endif %}
+
+    </header>
+</div>
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+      <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm">
+          <div class="card-header py-3">
+            <h4 class="my-0 fw-normal">Newbie</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">100<small class="text-body-secondary fw-light">/tokens</small></h1>
+            <a href="{{url_for('add_tokens', tokens=100)}}" type="button" class="w-100 btn btn-lg btn-outline-warning">Buy It!</a>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm">
+          <div class="card-header py-3">
+            <h4 class="my-0 fw-normal">Pro</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">300<small class="text-body-secondary fw-light">/tokens</small></h1>
+            <a type="button" class="w-100 btn btn-lg btn-warning">Come on!</a>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm border-warning">
+          <div class="card-header py-3 text-bg-warning ">
+            <h4 class="my-0 fw-normal">Legend</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">500<small class="text-body-secondary fw-light">/tokens</small></h1>
+            <a type="button" class="w-100 btn btn-lg btn-warning">You need it!</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  </div>
+
+</body>
+{% endblock content %}
