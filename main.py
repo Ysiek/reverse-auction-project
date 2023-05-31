@@ -4,7 +4,8 @@ from flask_bootstrap import Bootstrap
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
-from flask_wtf import FlaskForm, RecaptchaField
+from flask_wtf import FlaskForm
+from flask_wtf.recaptcha import RecaptchaField
 from wtforms import StringField, SubmitField, FloatField, PasswordField, IntegerField
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from wtforms.validators import DataRequired, Length
@@ -14,12 +15,12 @@ import os
 app = Flask(__name__)
 Bootstrap(app)
 
+RECAPTCHA_PUBLIC_KEY = os.environ.get("RECAPTCHA_PUBLIC_KEY")
+RECAPTCHA_PRIVATE_KEY = os.environ.get("RECAPTCHA_PRIVATE_KEY")
+
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 db = SQLAlchemy(app)
-
-RECAPTCHA_PUBLIC_KEY = "6LeYIbsSAAAAACRPIllxA7wvXjIE411PfdB2gt2J"
-RECAPTCHA_PRIVATE_KEY = "6LeYIbsSAAAAAJezaIq3Ft_hSTo0YtyeFG-JgRtu"
 
 app.config.from_object(__name__)
 
