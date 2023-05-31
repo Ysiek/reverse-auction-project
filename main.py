@@ -8,7 +8,6 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, FloatField, PasswordField, IntegerField
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from wtforms.validators import DataRequired, Email, Length
-import email_validator
 import random
 import os
 
