@@ -54,6 +54,7 @@ class Items(db.Model, UserMixin):
 
     item = relationship("CreatorItem", back_populates="item")
 
+
 class CreatorItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
@@ -113,9 +114,8 @@ def add_item():
         db.session.add(new_item)
         db.session.add(new_creator)
         db.session.commit()
-        return redirect(url_for('home'))
+        return redirect(url_for('home', user=current_user, logged_in=current_user.is_authenticated))
     return render_template('creating-auction.html', form=form)
-
 
 
 @app.route("/przedmiot/<int:item_id>")
