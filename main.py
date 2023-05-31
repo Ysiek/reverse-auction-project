@@ -115,7 +115,7 @@ def add_item():
         db.session.add(new_creator)
         db.session.commit()
         return redirect(url_for('home', user=current_user, logged_in=current_user.is_authenticated))
-    return render_template('creating-auction.html', form=form)
+    return render_template('creating-auction.html', form=form, user=current_user, logged_in=current_user.is_authenticated)
 
 
 @app.route("/przedmiot/<int:item_id>")
