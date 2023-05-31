@@ -4,7 +4,7 @@ from flask_bootstrap import Bootstrap
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
-from flask_wtf import FlaskForm
+from flask_wtf import FlaskForm, RecaptchaField
 from wtforms import StringField, SubmitField, FloatField, PasswordField, IntegerField
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from wtforms.validators import DataRequired, Length
@@ -17,6 +17,11 @@ Bootstrap(app)
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 db = SQLAlchemy(app)
+
+RECAPTCHA_PUBLIC_KEY = "6LeYIbsSAAAAACRPIllxA7wvXjIE411PfdB2gt2J"
+RECAPTCHA_PRIVATE_KEY = "6LeYIbsSAAAAAJezaIq3Ft_hSTo0YtyeFG-JgRtu"
+
+app.config.from_object(__name__)
 
 # FLASK LOGIN
 login_manager = LoginManager()
@@ -69,6 +74,7 @@ class SignUpForm(FlaskForm):
     email = StringField("Podaj swoj email:", validators=[DataRequired()])
     login = StringField("Podaj swoj login:", validators=[DataRequired()])
     password = PasswordField("Podaj haslo: ", validators=[DataRequired()])
+    recaptcha = RecaptchaField()
     sign_up = SubmitField("Sign up")
 
 
